@@ -1,5 +1,3 @@
-# llm-asistenteGemini
-llm-Asistente de Escritura Inteligente con Gemini (version simple)
 
 # ✍️ Asistente de Escritura Inteligente con Gemini (Versión Simple)
 
@@ -27,7 +25,6 @@ Aunque esta es una versión simple, la arquitectura conceptual detrás de un sis
 
 ```mermaid
 graph LR
-    A[Frontend (Aplicación Cliente)] --> C(UI de Sugerencias y Controles);
     A --> D(Módulos de Vista: Editor);
 
     subgraph Frontend
