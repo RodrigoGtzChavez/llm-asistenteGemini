@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente de Escritura Gemini (Simple)</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Asistente de Escritura Gemini (Simple)</h1>
+        <p>Escribe tu texto a continuación y usa los botones para obtener ayuda.</p>
+
+        <textarea id="editor" placeholder="Empieza a escribir aquí tu correo, artículo, o cualquier cosa..."></textarea>
+
+        <div>
+            <button id="improveBtn">Mejorar Texto</button>
+            <button id="completeBtn">Completar Texto</button>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">Cargando...</div>
+
+        <div class="results" id="results">
+            </div>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const improveBtn = document.getElementById('improveBtn');
+        const completeBtn = document.getElementById('completeBtn');
+        const resultsDiv = document.getElementById('results');
+        const loadingDiv = document.getElementById('loading');
+
+        const API_BASE_URL = 'http://127.0.0.1:5000'; // Asegúrate de que coincida con tu puerto de Flask
+
+        async function callApi(endpoint, data) {
+            loadingDiv.style.display = 'block';
+            resultsDiv.textContent = ''; // Limpiar resultados anteriores
+            try {
+                const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || HTTP error! status: ${response.status});
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Error al llamar a la API:', error);
+                resultsDiv.textContent = Error: ${error.message}. Asegúrate de que el servidor esté corriendo.;
+                return null;
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+
+        improveBtn.addEventListener('click', async () => {
+            const text = editor.value;
+            if (!text.trim()) {
+                resultsDiv.textContent = "Por favor, escribe algo de texto para mejorar.";
+                return;
+            }
+            const response = await callApi('improve_text', { text: text });
+            if (response && response.improved_text) {
+                resultsDiv.textContent = response.improved_text;
+            }
+        });
+
+        completeBtn.addEventListener('click', async () => {
+            const text = editor.value;
+            // Para la versión simple, solo usamos el texto actual para la continuación
+            // En una versión más avanzada, podríamos pedir una "instrucción"
+            const response = await callApi('complete_text', { text: text, instruction: "" });
+            if (response && response.generated_text) {
+                resultsDiv.textContent = response.generated_text;
+            }
+        });
+    </script>
+</body>
+</html>
