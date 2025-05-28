@@ -14,7 +14,7 @@ GEMINI_API_KEY = os.getenv("AIzaSyB70WAK5AMuLVJPhdmASEQv-_JzdF1W50c")
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY no está configurada en el archivo .env")
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-pro') # O 'gemini-1.5-pro-latest' si tienes acceso
+model = genai.GenerativeModel('gemini-2.0-flash') # O 'gemini-1.5-pro-latest' si tienes acceso
 
 @app.route('/improve_text', methods=['POST'])
 def improve_text():
