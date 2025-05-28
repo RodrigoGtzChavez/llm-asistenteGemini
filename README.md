@@ -157,3 +157,5 @@ Entorno de desarrollo: Recomendado un sistema operativo basado en Unix (como Ubu
 Con estos pasos, deberías tener todo lo necesario para ejecutar tu Asistente de Escritura Inteligente impulsado por Gemini. ¡Empieza a escribir y experimenta con las funciones de mejora y completado de texto!
 
 Nota: Esta es una versión simple y puede tener limitaciones. Las futuras versiones podrían incluir más funcionalidades y una interfaz de usuario más elaborada.
+
+![Texto alternativo](imagen.png)
