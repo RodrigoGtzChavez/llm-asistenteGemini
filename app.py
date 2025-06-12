@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app) # Habilitar CORS para todas las rutas
 
 # Configura la API de Gemini
-GEMINI_API_KEY = os.getenv("AIzaSyB70WAK5AMuLVJPhdmASEQv-_JzdF1W50c")
+GEMINI_API_KEY = os.getenv("tu_api_key")
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY no está configurada en el archivo .env")
 genai.configure(api_key=GEMINI_API_KEY)
